@@ -11,6 +11,8 @@ import { useColorScheme, useLocalStorage } from '@mantine/hooks';
 import { IconMoonStars, IconSun } from '@tabler/icons';
 import React from 'react';
 
+import { Locale } from 'src/locales';
+
 import { useStyle } from './AppHeader.style';
 import Toggle from './Toggle';
 
@@ -23,7 +25,7 @@ const AppHeader = () => {
     getInitialValueInEffect: true,
   });
   const { getToggle, setToggle } = Toggle();
-
+  const { t } = Locale();
   return (
     <Header
       className={classes.header}
@@ -50,7 +52,7 @@ const AppHeader = () => {
         >
           <Group position='center'>
             <Title className={classes.title} align='center' order={2}>
-              {'JSON Application'}
+              {t('app.header.title')}
             </Title>
           </Group>
           <ActionIcon

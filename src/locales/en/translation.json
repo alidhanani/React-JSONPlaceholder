@@ -1,0 +1,20 @@
+{
+  "translation": {
+    "app": {
+      "header": {
+        "title": "JSON Placeholder"
+      },
+      "table": {
+        "header": {
+          "id": "id",
+          "userid": "Userid",
+          "title": "Title",
+          "body": "Body"
+        }
+      },
+      "footer": {
+        "title": "React Json Placeholder"
+      }
+    }
+  }
+}
