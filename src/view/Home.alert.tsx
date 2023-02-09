@@ -2,7 +2,7 @@ import { Alert } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons';
 import React from 'react';
 
-const RegistrationAlert = (props: {
+const HomeAlert = (props: {
   visible: boolean;
   setVisible: () => void;
   message: string;
@@ -25,4 +25,4 @@ const RegistrationAlert = (props: {
   );
 };
 
-export default React.memo(RegistrationAlert);
+export default React.memo(HomeAlert);

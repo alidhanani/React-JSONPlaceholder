@@ -1,17 +1,26 @@
 import { AppShell, ColorScheme, MantineProvider } from '@mantine/core';
 import { useColorScheme, useLocalStorage } from '@mantine/hooks';
+import { useEffect } from 'react';
+
+import { useRequest } from 'src/service';
 
 import Home from '../view/Home';
 import AppFooter from './AppFooter';
 import AppHeader from './AppHeader';
 
 const App = () => {
-  const colorSchemeSystem = useColorScheme();
   const [colorScheme] = useLocalStorage<ColorScheme>({
     key: 'darkTheme',
-    defaultValue: colorSchemeSystem,
+    defaultValue: useColorScheme(),
     getInitialValueInEffect: true,
   });
+  const { getPosts } = useRequest();
+
+  useEffect(() => {
+    getPosts().then((value) => {
+      localStorage.setItem('posts', JSON.stringify(value));
+    });
+  }, []);
 
   return (
     <MantineProvider

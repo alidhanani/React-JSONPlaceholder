@@ -4,6 +4,10 @@
       "header": {
         "title": "JSON Placeholder"
       },
+      "form": {
+        "title": "Title",
+        "post": "Post"
+      },
       "table": {
         "header": {
           "id": "id",
