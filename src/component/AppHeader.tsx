@@ -25,7 +25,7 @@ const AppHeader = () => {
             width: '50%',
           }}
           px={20}
-          position='apart'
+          position='center'
         >
           <Group position='left'>
             <Title className={classes.title} align='center' order={2}>

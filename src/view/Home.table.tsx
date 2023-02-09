@@ -15,6 +15,7 @@ const HomeTable = () => {
   const [editModal, setEditModal] = useState(false);
   const [editID, setEditID] = useState('0');
   const [currentPage, setCurrentPage] = useState(1);
+
   const storedPosts = localStorage.getItem('posts');
   const posts: Post[] = storedPosts ? JSON.parse(storedPosts) : [];
   const [sorted, setSorted] = useState(
@@ -59,15 +60,15 @@ const HomeTable = () => {
     }
   };
 
-  const onEdit = () => {
+  const onEdit = (title: string, body: string) => {
     const index = sorted.findIndex((value: Post) => value.id === editID);
     const data = sorted.find((value: Post) => value.id === editID);
     if (data) {
       const sendData: Post = {
         id: data.id,
         userId: data.userId,
-        title: formData.values.title,
-        body: formData.values.body,
+        title: title,
+        body: body,
       };
       sorted[index] = sendData;
     }
@@ -137,10 +138,10 @@ const HomeTable = () => {
   return (
     <>
       <EditModal
-        formData={formData}
+        id={editID}
         status={editModal}
         onClose={() => setEditModal(!editModal)}
-        onClick={() => onEdit()}
+        onClick={(title, body) => onEdit(title, body)}
       />
       <HomeForm formData={formData} onClick={onAdd} />
       <Card
