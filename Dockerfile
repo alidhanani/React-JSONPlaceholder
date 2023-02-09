@@ -1,10 +1,13 @@
 FROM node:14-alpine as builder
+ENV ESBUILD_PACKAGE=@esbuild/linux-arm64
 
 WORKDIR /app
 
 COPY yarn.lock ./
 
 RUN yarn install --frozen-lockfile --production=true
+
+RUN yarn add vite
 
 COPY . .
 
