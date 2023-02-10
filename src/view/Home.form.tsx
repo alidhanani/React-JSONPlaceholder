@@ -53,7 +53,7 @@ const HomeForm = (props: HomeFormProps) => {
               marginRight: '18px',
             }}
           >
-            {'Post'}
+            {t('app.form.button')}
           </Button>
         </Grid.Col>
       </Grid>

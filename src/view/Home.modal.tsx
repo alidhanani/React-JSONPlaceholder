@@ -1,35 +1,24 @@
 import { Button, Modal, TextInput, Title } from '@mantine/core';
-import { useForm } from '@mantine/form';
 import { t } from 'i18next';
-
-import { Post } from 'src/model';
+import { useLayoutEffect, useState } from 'react';
 
 interface ModelProps {
   id: string;
+  title: string;
+  body: string;
   status: boolean;
   onClose: () => void;
   onClick: (title: string, body: string) => void;
 }
 
 export const EditModal = (props: ModelProps) => {
-  const storedPosts = localStorage.getItem('posts');
-  const posts: Post[] = storedPosts ? JSON.parse(storedPosts) : [];
-  const post = posts.find((value) => value.id === props.id);
-  const formData = useForm<Post>({
-    validate: (values) => {
-      return {
-        title: values.title.trim().length < 1 ? 'Title cant be empty' : null,
-        body: values.body.trim().length < 2 ? 'Post cant be empty' : null,
-      };
-    },
-    initialValues: {
-      userId: '',
-      id: '',
-      title: post ? post.title : '',
-      body: post ? post.body : '',
-    },
-    validateInputOnChange: true,
-  });
+  const [formTitle, setFormTitle] = useState(props.title);
+  const [formBody, setFormBody] = useState(props.body);
+
+  useLayoutEffect(() => {
+    setFormTitle(props.title);
+    setFormBody(props.body);
+  }, [props.title, props.body]);
 
   return (
     <Modal
@@ -43,16 +32,18 @@ export const EditModal = (props: ModelProps) => {
     >
       <>
         <TextInput
-          {...formData.getInputProps('title')}
-          label={t('app.form.title')}
+          label={t('app.modal.title')}
           type='text'
           id={'title'}
+          defaultValue={props.title}
+          onChange={(event) => setFormTitle(event.currentTarget.value)}
         />
         <TextInput
-          {...formData.getInputProps('body')}
-          label={t('app.form.post')}
+          label={t('app.modal.post')}
           type='text'
           id={'body'}
+          defaultValue={props.body}
+          onChange={(event) => setFormBody(event.currentTarget.value)}
         />
         <Button
           size={'md'}
@@ -60,7 +51,7 @@ export const EditModal = (props: ModelProps) => {
           color={'blue'}
           compact
           onClick={() => {
-            props.onClick(formData.values.title, formData.values.body);
+            props.onClick(formTitle, formBody);
           }}
           style={{
             marginTop: '20px',
@@ -69,7 +60,7 @@ export const EditModal = (props: ModelProps) => {
             marginRight: '18px',
           }}
         >
-          {'Post'}
+          {t('app.form.button')}
         </Button>
       </>
     </Modal>

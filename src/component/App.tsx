@@ -1,61 +1,28 @@
-import { AppShell, ColorScheme, MantineProvider } from '@mantine/core';
-import { useColorScheme, useLocalStorage } from '@mantine/hooks';
-import { useEffect } from 'react';
+import * as React from 'react';
+import { Component, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { useRequest } from 'src/service';
+const loading = (
+  <div className='pt-3 text-center'>
+    <div className='sk-spinner sk-spinner-pulse'></div>
+  </div>
+);
 
-import Home from '../view/Home';
-import AppFooter from './AppFooter';
-import AppHeader from './AppHeader';
+// Containers
+const DefaultLayout = React.lazy(() => import('./DefaultLayout'));
 
-const App = () => {
-  const [colorScheme] = useLocalStorage<ColorScheme>({
-    key: 'darkTheme',
-    defaultValue: useColorScheme(),
-    getInitialValueInEffect: true,
-  });
-  const { getPosts } = useRequest();
-
-  useEffect(() => {
-    getPosts().then((value) => {
-      localStorage.setItem('posts', JSON.stringify(value));
-    });
-  }, []);
-
-  return (
-    <MantineProvider
-      theme={{
-        colorScheme: colorScheme,
-        colors: {
-          // override dark colors to change them for all components
-          dark: [
-            '#d5d7e0',
-            '#acaebf',
-            '#8c8fa3',
-            '#666980',
-            '#4d4f66',
-            '#34354a',
-            '#2b2c3d',
-            '#1d1e30',
-            '#0c0d21',
-            '#01010a',
-          ],
-        },
-      }}
-      withGlobalStyles
-    >
-      <AppShell
-        padding='md'
-        layout='alt'
-        navbarOffsetBreakpoint='sm'
-        asideOffsetBreakpoint='sm'
-        header={<AppHeader />}
-        footer={<AppFooter />}
-      >
-        <Home />
-      </AppShell>
-    </MantineProvider>
-  );
-};
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Suspense fallback={loading}>
+          <Routes>
+            <Route path='*' element={<DefaultLayout />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    );
+  }
+}
 
 export default App;

@@ -14,6 +14,8 @@ const HomeTable = () => {
   const { classes } = useStyle();
   const [editModal, setEditModal] = useState(false);
   const [editID, setEditID] = useState('0');
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
   const storedPosts = localStorage.getItem('posts');
@@ -31,8 +33,8 @@ const HomeTable = () => {
   const formData = useForm<Post>({
     validate: (values) => {
       return {
-        title: values.title.trim().length < 1 ? 'Title cant be empty' : null,
-        body: values.body.trim().length < 2 ? 'Post cant be empty' : null,
+        title: values.title.trim().length < 1 ? t('app.error.post') : null,
+        body: values.body.trim().length < 2 ? t('app.error.body') : null,
       };
     },
     initialValues: {
@@ -109,6 +111,8 @@ const HomeTable = () => {
             leftIcon={<IconEditCircle size={14} />}
             color={'indigo'}
             onClick={() => {
+              setTitle(item.title);
+              setBody(item.body);
               setEditModal(true);
               setEditID(item.id);
             }}
@@ -116,7 +120,7 @@ const HomeTable = () => {
             compact
             type={'button'}
           >
-            {'Edit'}
+            {t('app.table.body.button.edit')}
           </Button>
           <Button
             size={'sm'}
@@ -128,7 +132,7 @@ const HomeTable = () => {
             onClick={() => deleteData(item.id)}
             type={'button'}
           >
-            {'Delete'}
+            {t('app.table.body.button.delete')}
           </Button>
         </Button.Group>
       </tr>
@@ -142,6 +146,8 @@ const HomeTable = () => {
         status={editModal}
         onClose={() => setEditModal(!editModal)}
         onClick={(title, body) => onEdit(title, body)}
+        title={title}
+        body={body}
       />
       <HomeForm formData={formData} onClick={onAdd} />
       <Card
@@ -163,7 +169,7 @@ const HomeTable = () => {
             {tableHeader([
               t('app.table.header.title'),
               t('app.table.header.body'),
-              'Action',
+              t('app.table.header.action'),
             ])}
             <tbody key={'mainBody'}>{tableBody()}</tbody>
           </Table>

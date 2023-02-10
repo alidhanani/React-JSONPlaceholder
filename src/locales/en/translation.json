@@ -6,18 +6,35 @@
       },
       "form": {
         "title": "Title",
-        "post": "Post"
+        "post": "Post",
+        "button": "Post"
+      },
+      "modal": {
+        "title": "Title",
+        "body": "Post",
+        "button": "Post"
       },
       "table": {
         "header": {
           "id": "id",
           "userid": "Userid",
           "title": "Title",
-          "body": "Body"
+          "body": "Body",
+          "action": "Action"
+        },
+        "body": {
+          "button": {
+            "edit": "Edit",
+            "delete": "Delete"
+          }
         }
       },
       "footer": {
         "title": "React Json Placeholder"
+      },
+      "error": {
+        "post": "Title cant be empty",
+        "body": "Body cant be empty"
       }
     }
   }
