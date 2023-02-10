@@ -17,14 +17,15 @@ const HomeTable = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const elementPerPage = 5;
 
   const storedPosts = localStorage.getItem('posts');
   const posts: Post[] = storedPosts ? JSON.parse(storedPosts) : [];
   const [sorted, setSorted] = useState(
     posts.sort((a, b) => parseInt(b.id) - parseInt(a.id))
   );
-  const indexOfLastPost = currentPage * 5;
-  const indexOfFirstPost = indexOfLastPost - 5;
+  const indexOfLastPost = currentPage * elementPerPage;
+  const indexOfFirstPost = indexOfLastPost - elementPerPage;
   const currentPosts = sorted.slice(indexOfFirstPost, indexOfLastPost);
   const { t } = Locale();
 
@@ -104,7 +105,7 @@ const HomeTable = () => {
         {[item.title, item.body].map((item: string) => (
           <td key={item}>{item}</td>
         ))}
-        <Button.Group style={{ padding: '20px' }}>
+        <Button.Group className={classes.paginationPadding}>
           <Button
             size={'sm'}
             variant={'outline'}
@@ -116,7 +117,7 @@ const HomeTable = () => {
               setEditModal(true);
               setEditID(item.id);
             }}
-            style={{ width: '100px' }}
+            className={classes.tableButton}
             compact
             type={'button'}
           >
@@ -128,7 +129,7 @@ const HomeTable = () => {
             leftIcon={<IconTrash size={14} />}
             color={'red'}
             compact
-            style={{ width: '100px' }}
+            className={classes.tableButton}
             onClick={() => deleteData(item.id)}
             type={'button'}
           >
@@ -175,7 +176,7 @@ const HomeTable = () => {
           </Table>
           <Pagination
             position='center'
-            style={{ padding: '10px' }}
+            className={classes.paginationPadding}
             styles={(theme) => ({
               item: {
                 '&[data-active]': {
@@ -189,7 +190,7 @@ const HomeTable = () => {
             })}
             page={currentPage}
             onChange={(value) => paginate(value)}
-            total={posts.length ? Math.ceil(posts.length / 10) : 1}
+            total={posts.length ? Math.ceil(posts.length / elementPerPage) : 1}
           />
         </Card.Section>
       </Card>

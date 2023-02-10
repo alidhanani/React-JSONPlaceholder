@@ -46,12 +46,7 @@ const HomeForm = (props: HomeFormProps) => {
             color={'blue'}
             compact
             onClick={props.onClick}
-            style={{
-              marginTop: '20px',
-              width: '100px',
-              float: 'right',
-              marginRight: '18px',
-            }}
+            className={classes.formButton}
           >
             {t('app.form.button')}
           </Button>

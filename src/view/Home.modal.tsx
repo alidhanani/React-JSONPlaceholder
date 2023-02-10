@@ -2,6 +2,8 @@ import { Button, Modal, TextInput, Title } from '@mantine/core';
 import { t } from 'i18next';
 import { useLayoutEffect, useState } from 'react';
 
+import { useStyle } from './Home.style';
+
 interface ModelProps {
   id: string;
   title: string;
@@ -14,6 +16,7 @@ interface ModelProps {
 export const EditModal = (props: ModelProps) => {
   const [formTitle, setFormTitle] = useState(props.title);
   const [formBody, setFormBody] = useState(props.body);
+  const { classes } = useStyle();
 
   useLayoutEffect(() => {
     setFormTitle(props.title);
@@ -56,12 +59,7 @@ export const EditModal = (props: ModelProps) => {
           onClick={() => {
             props.onClick(formTitle, formBody);
           }}
-          style={{
-            marginTop: '20px',
-            width: '100px',
-            float: 'right',
-            marginRight: '18px',
-          }}
+          className={classes.formButton}
         >
           {t('app.form.button')}
         </Button>

@@ -19,5 +19,20 @@ export const useStyle = createStyles(() => {
       marginRight: 'auto',
       paddingRight: '100px',
     },
+    formButton: {
+      marginTop: '20px',
+      width: '100px',
+      float: 'right',
+      marginRight: '18px',
+    },
+    tableButton: {
+      width: '100px',
+    },
+    paginationPadding: {
+      padding: '10px',
+    },
+    formButtonGroup: {
+      padding: '20px',
+    },
   };
 });
