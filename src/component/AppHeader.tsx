@@ -17,15 +17,15 @@ const AppHeader = () => {
   });
   const { t } = Locale();
   return (
-    <Header className={classes.header} fixed={false} height={70} p='xs'>
+    <Header className={classes.header} fixed={true} height={70} p='xs'>
       <Group position='center'>
         <Group
           sx={{
             height: '100%',
-            width: '50%',
+            width: '91%',
           }}
           px={20}
-          position='center'
+          position='apart'
         >
           <Group position='left'>
             <Title className={classes.title} align='center' order={2}>

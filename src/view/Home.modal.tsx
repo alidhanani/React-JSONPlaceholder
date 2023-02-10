@@ -22,10 +22,13 @@ export const EditModal = (props: ModelProps) => {
 
   return (
     <Modal
+      transition='fade'
+      transitionDuration={600}
+      transitionTimingFunction='ease'
       opened={props.status}
       onClose={props.onClose}
       title={
-        <Title align='center' order={2}>
+        <Title align='right' order={2}>
           Edit Form
         </Title>
       }
