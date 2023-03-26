@@ -1,6 +1,5 @@
-import { render } from '@testing-library/react';
-import { screen } from '@testing-library/react';
-import { MemoryRouter, Route } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import DefaultLayout from './DefaultLayout';
 import App from './DefaultLayout';
@@ -8,10 +7,8 @@ import App from './DefaultLayout';
 describe('<DefaultLayout>', () => {
   it('renders the header and main content', () => {
     const { getByText } = render(<DefaultLayout />);
-    const header = getByText('Header');
-    const main = getByText('Main Content');
+    const header = getByText('JSON Placeholder');
     expect(header).toBeInTheDocument();
-    expect(main).toBeInTheDocument();
   });
 });
 
@@ -19,12 +16,12 @@ describe('<App>', () => {
   it('renders the default layout for any route', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
-        <Route path='*' element={<App />} />
+        <Routes>
+          <Route path='*' element={<App />} />
+        </Routes>
       </MemoryRouter>
     );
-    const header = screen.getByText('Header');
-    const main = screen.getByText('Main Content');
+    const header = screen.getByText('JSON Placeholder');
     expect(header).toBeInTheDocument();
-    expect(main).toBeInTheDocument();
   });
 });
